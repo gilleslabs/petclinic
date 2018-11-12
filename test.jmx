@@ -390,7 +390,6 @@
               <threadCounts>true</threadCounts>
             </value>
           </objProp>
-          <stringProp name="filename">D:\apache-jmeter-5.0\bin\result2.jtl</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
