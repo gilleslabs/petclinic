@@ -1,0 +1,33 @@
+version: '3'
+
+####
+#### this docker-compose can be used to start the petclinic with a plain mysql that is populated on application startup
+####
+
+services:
+   mysql:
+     image: mysql:5.7.8
+     environment:
+       MYSQL_ROOT_PASSWORD: petclinic
+       MYSQL_DATABASE: petclinic
+     healthcheck:
+        test: "/usr/bin/mysql --user=root --password=petclinic --execute \"SHOW DATABASES;\""
+        interval: 2s
+        timeout: 20s
+        retries: 10
+     networks:
+      - samplenet
+
+   petclinic:
+     depends_on:
+        - mysql
+     image: gtosi/spring-petclinic
+     deploy:
+      mode: global
+     networks:
+      - samplenet
+     ports:
+       - "8080:8080"
+networks:
+  samplenet:
+    driver: overlay
